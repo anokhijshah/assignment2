@@ -82,7 +82,7 @@ control MyIngress(inout headers hdr,
 
     action forward_to_port(bit<9> egress_port, macAddr_t egress_mac) {
         /* TODO: change the packet's source MAC address to egress_mac */
-        /* Then set the egress port in the packet's standard_metadata to egress_port */
+        /* Then set the egress_spec in the packet's standard_metadata to egress_port */
     }
    
     action decrement_ttl() {
