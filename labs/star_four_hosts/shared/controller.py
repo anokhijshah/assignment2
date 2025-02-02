@@ -41,11 +41,15 @@ def main(p4info_file_path, bmv2_file_path):
         s1.SetForwardingPipelineConfig(p4info=p4info_helper.p4info,
                                    bmv2_json_file_path=bmv2_file_path)
         print ("Installed P4 Program using SetForwardingPipelineConfig on %s" % s1.name)
-        
-        digest_id = p4info_helper.get_id('digests', 'mac_learn_digest_t')
-        s1.InsertDigest(digest_id)
 
-        print (f"Inserted digest {digest_id}")
+        try:
+            digest_id = p4info_helper.get_id('digests', 'mac_learn_digest_t')
+            s1.InsertDigest(digest_id)
+            print (f"Inserted digest {digest_id}")
+        except AttributeError as e:
+            print (e)
+            print ("MAC learning needs to be implemented in l2_basic_forwarding.p4")
+            
         # Add mcast grp
         for port in ENABLED_PORT:
             mc_entry = p4info_helper.buildMulticastGroupEntry(
