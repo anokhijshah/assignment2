@@ -85,8 +85,16 @@ control MyIngress(inout headers hdr,
     /* define forwarding table */
     table dmac_forward {
         /* TODO: define key, actions, and default action for the table */ 
+        key = { 
+            hdr.ethernet.dstAddr: exact;
+        }
+        actions = { 
+            forward_to_port;
+            broadcast;
+        }
         size = 4;
         support_timeout = true;
+        default_action = broadcast();
     }
 
     /* check if the mac address to port mapping exists */
