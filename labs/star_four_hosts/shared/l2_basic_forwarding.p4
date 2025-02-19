@@ -79,6 +79,8 @@ control MyIngress(inout headers hdr,
     action learn() {
         mac_learn_digest_t mac_learn_msg;
         /* TODO: Fill the digest message with srcMAC and ingress port */
+        mac_learn_msg.srcAddr = hdr.ethernet.srcAddr;
+        mac_learn_msg.ingress_port = standard_metadata.ingress_port;
         
         /* send the digest message to the controller */
         digest<mac_learn_digest_t>(1, mac_learn_msg);
