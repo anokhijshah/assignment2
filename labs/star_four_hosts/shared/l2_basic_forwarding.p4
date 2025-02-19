@@ -101,8 +101,16 @@ control MyIngress(inout headers hdr,
     /* check if the mac address to port mapping exists */
     table smac_table{
         /* TODO: define key, actions, and default action for the table */  
+        key = { 
+            hdr.ethernet.srcAddr: exact;
+        }
+        actions = { 
+            NoAction;
+            learn;
+        }
         size = 4;
         support_timeout = true;
+        default_action = learn();
     }
 
     /* applying tables */
