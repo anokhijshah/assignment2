@@ -109,6 +109,7 @@ control MyIngress(inout headers hdr,
    
     action decrement_ttl() {
         /* TODO: decrement the IPv4 header's TTL field by one */
+        hdr.ipv4.ttl = hdr.ipv4.ttl - 1;
     }
 
     action forward_to_next_hop(ipAddr_t next_hop){
