@@ -111,6 +111,7 @@ control MyIngress(inout headers hdr,
 
     action forward_to_next_hop(ipAddr_t next_hop){
         /* TODO: write next_hop to metadata's next_hop field */
+        meta.next_hop = next_hop;
     }
 
     action change_dst_mac (macAddr_t dst_mac) {
@@ -122,6 +123,15 @@ control MyIngress(inout headers hdr,
         /* TODO: define a static ipv4 routing table */
         /* Perform longest prefix matching on dstIP then */
         /* record the next hop IP address in the metadata's next_hop field*/
+        key = {
+            hdr.ipv4.dstAddr: lpm;
+        }
+        actions = {
+            forward_to_next_hop;
+            drop;
+        }
+        size = 1024;
+        default_action = drop();
     }
 
     /* define static ARP table */
