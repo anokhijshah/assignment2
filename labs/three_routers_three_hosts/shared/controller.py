@@ -70,6 +70,17 @@ def main(p4info_file_path, bmv2_file_path, routing_info):
                 # They represent the next hop IP to dstMAC mapping.
                 # 1. Use p4info_helper's buildTableEntry() method to build a table_entry
                 # 2. Add the table_entry to the switch by calling s1's WriteTableEntry() method
+                arp_entry = p4info_helper.buildTableEntry(
+                    table_name="MyIngress.arp_table",
+                    match_fields={
+                        "meta.next_hop": next_hop_ip
+                    },
+                    action_name="MyIngress.change_dst_mac",
+                    action_params={
+                        "next_hop_mac": next_hop_mac 
+                    }
+                )
+                s1.WriteTableEntry(arp_entry)
                 
                 print ("Add MAC table entry", next_hop_mac, egress_port, egress_mac)
                 # TODO: Add table entries to "MyIngress.dmac_forward"
