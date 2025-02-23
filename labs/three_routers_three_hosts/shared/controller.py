@@ -53,6 +53,17 @@ def main(p4info_file_path, bmv2_file_path, routing_info):
                 # They represent the prefix of dstIP to next hop IP mapping.
                 # 1. Use p4info_helper's buildTableEntry() method to build a table_entry
                 # 2. Add the table_entry to the switch by calling s1's WriteTableEntry() method
+                ipv4_entry = p4info_helper.buildTableEntry(
+                    table_name="MyIngress.ipv4_route",
+                    match_fields={
+                        "hdr.ipv4.dstAddr": prefix + "/" + str(prefix_len)
+                    },
+                    action_name="MyIngress.forward_to_next_hop",
+                    action_params={
+                        "next_hop": next_hop_ip 
+                    }
+                )
+                s1.WriteTableEntry(ipv4_entry)
                 
                 print ("Add ARP table entry", next_hop_ip,next_hop_mac)
                 # TODO: Add table entries to "MyIngress.arp_table"
