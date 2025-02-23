@@ -61,6 +61,11 @@ parser MyParser(packet_in packet,
     state parse_ethernet {
         /* TODO: do ethernet header parsing */
         /* if the frame type is IPv4, go to IPv4 parsing */ 
+        packet.extract(hdr.ethernet);
+        transition select(hdr.ethernet.etherType) {
+            ETHER_IPV4: parse_ipv4;
+            default: accept;
+        }
     }
 
     state parse_ipv4 {
