@@ -103,6 +103,8 @@ control MyIngress(inout headers hdr,
     action forward_to_port(bit<9> egress_port, macAddr_t egress_mac) {
         /* TODO: change the packet's source MAC address to egress_mac */
         /* Then set the egress_spec in the packet's standard_metadata to egress_port */
+        hdr.ethernet.srcAddr = egress_mac;
+        standard_metadata.egress_spec = egress_port;
     }
    
     action decrement_ttl() {
@@ -157,6 +159,15 @@ control MyIngress(inout headers hdr,
         /* TODO: define a static forwarding table */
         /* Perform exact matching on dstMAC then */
         /* forward to the corresponding egress port */ 
+        key = {
+            hdr.ethernet.dstAddr: exact;
+        }
+        actions = {
+            forward_to_port;
+            drop;
+        }
+        size = 1024;
+        default_action = drop();
     }
    
     /* applying dmac */
