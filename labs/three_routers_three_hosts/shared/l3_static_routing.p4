@@ -10,6 +10,9 @@ typedef bit<48> macAddr_t;
 typedef bit<32> ipAddr_t;
 header ethernet_t {
     /* TODO: define Ethernet header */ 
+    macAddr_t dstAddr;
+    macAddr_t srcAddr;
+    bit<16> etherType;
 }
 
 /* a basic ip header without options and pad */
