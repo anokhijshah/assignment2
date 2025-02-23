@@ -18,6 +18,18 @@ header ethernet_t {
 /* a basic ip header without options and pad */
 header ipv4_t {
     /* TODO: define IP header */ 
+    bit<4> version;
+    bit<4> ihl;
+    bit<8> diffserv;
+    bit<16> totalLen;
+    bit<16> identification;
+    bit<3> flags;
+    bit<13> fragOffset;
+    bit<8> ttl;
+    bit<8> protocol;
+    bit<16> hdrChecksum;
+    ipAddr_t srcAddr;
+    ipAddr_t dstAddr;
 }
 
 struct metadata {
