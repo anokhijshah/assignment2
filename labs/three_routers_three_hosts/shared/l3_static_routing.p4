@@ -177,6 +177,20 @@ control MyIngress(inout headers hdr,
         /* 2. Upon hit, lookup ARP table */
         /* 3. Upon hit, Decrement ttl */
         /* 4. Then lookup forwarding table */  
+        if (hdr.ipv4.isValid()) {
+            if (ipv4_route.apply().hit) {
+                decrement_ttl();
+                if (!dmac_forward.apply().hit) {
+                    drop();
+                }
+            }
+            else {
+                drop();
+            }
+        }
+        else {
+            drop();
+        }
     }
 }
 
