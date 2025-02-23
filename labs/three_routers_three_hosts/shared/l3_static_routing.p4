@@ -116,6 +116,7 @@ control MyIngress(inout headers hdr,
 
     action change_dst_mac (macAddr_t dst_mac) {
         /* TODO: change a packet's destination MAC address to dst_mac*/
+        hdr.ethernet.dstAddr = dst_mac;
     }
 
     /* define routing table */
@@ -139,6 +140,15 @@ control MyIngress(inout headers hdr,
         /* TODO: define a static ARP table */
         /* Perform exact matching on metadata's next_hop field then */
         /* modify the packet's src and dst MAC addresses upon match */
+        key = {
+            meta.next_hop: exact;
+        }
+        actions = {
+            change_dst_mac;
+            drop;
+        }
+        size = 16;
+        default_action = drop();
     }
 
 
