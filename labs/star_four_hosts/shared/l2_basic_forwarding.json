@@ -139,7 +139,7 @@
       "id" : 0,
       "source_info" : {
         "filename" : "/shared/l2_basic_forwarding.p4",
-        "line" : 154,
+        "line" : 153,
         "column" : 8,
         "source_fragment" : "MyDeparser"
       },
@@ -351,7 +351,7 @@
           "id" : 0,
           "source_info" : {
             "filename" : "/shared/l2_basic_forwarding.p4",
-            "line" : 106,
+            "line" : 105,
             "column" : 10,
             "source_fragment" : "smac_table"
           },
@@ -429,7 +429,7 @@
       "id" : 1,
       "source_info" : {
         "filename" : "/shared/l2_basic_forwarding.p4",
-        "line" : 131,
+        "line" : 130,
         "column" : 8,
         "source_fragment" : "MyEgress"
       },
