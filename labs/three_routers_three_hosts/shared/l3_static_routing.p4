@@ -185,19 +185,11 @@ control MyIngress(inout headers hdr,
     apply {
         /* TODO: Implement a routing logic */
         /* 1. Lookup IPv4 routing table */
-        /* 2. Upon hit, lookup ARP table */
-        /* 3. Upon hit, Decrement ttl */
-        /* 4. Then lookup forwarding table */  
-        if (hdr.ipv4.isValid()) {
-            if (ipv4_route.apply().hit) {
-                decrement_ttl();
-                if (!dmac_forward.apply().hit) {
-                    drop();
-                }
-            }
-            else {
-                drop();
-            }
+        /* 2. Upon hit, lookup ARP table, Decrement ttl and lookup forwarding table */  
+        if (ipv4_route.apply().hit) {
+            arp_table.apply().hit
+            decrement_ttl();
+            dmac_forward.apply().hit
         }
         else {
             drop();

@@ -95,7 +95,6 @@ control MyIngress(inout headers hdr,
         actions = { 
             forward_to_port;
             broadcast;
-            drop;
         }
         size = 4;
         support_timeout = true;

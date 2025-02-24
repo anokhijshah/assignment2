@@ -95,7 +95,7 @@ def main(p4info_file_path, bmv2_file_path):
                 dmac_entry = p4info_helper.buildTableEntry(
                     table_name="MyIngress.dmac_forward",
                     match_fields={"hdr.ethernet.dstAddr": eth_src_addr},
-                    action_name="forward_to_port",
+                    action_name="MyIngress.forward_to_port",
                     action_params={"egress_port": port_id}
                 )
                 dmac_entry.idle_timeout_ns = TIMEOUT_SEC * 1_000_000_000
