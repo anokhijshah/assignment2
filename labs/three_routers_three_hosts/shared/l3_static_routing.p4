@@ -85,9 +85,14 @@ control MyVerifyChecksum(inout headers hdr, inout metadata meta) {
         /* Use HashAlgorithm.csum16 as a hash algorithm */ 
         verify_checksum(true,
             { hdr.ipv4.version,
-              hdr.ipv4.flags,
-              hdr.ipv4.identification,
+              hdr.ipv4.ihl,
+              hdr.ipv4.diffserv,
               hdr.ipv4.totalLen,
+              hdr.ipv4.identification,
+              hdr.ipv4.flags,
+              hdr.ipv4.fragOffset,
+              hdr.ipv4.ttl,
+              hdr.ipv4.protocol,
               hdr.ipv4.srcAddr,
               hdr.ipv4.dstAddr
             },
@@ -220,9 +225,14 @@ control MyComputeChecksum(inout headers hdr, inout metadata meta) {
         /* Use HashAlgorithm.csum16 as a hash algorithm */
         update_checksum(true,
             { hdr.ipv4.version,
-              hdr.ipv4.flags,
-              hdr.ipv4.identification,
+              hdr.ipv4.ihl,
+              hdr.ipv4.diffserv,
               hdr.ipv4.totalLen,
+              hdr.ipv4.identification,
+              hdr.ipv4.flags,
+              hdr.ipv4.fragOffset,
+              hdr.ipv4.ttl,
+              hdr.ipv4.protocol,
               hdr.ipv4.srcAddr,
               hdr.ipv4.dstAddr
             },
