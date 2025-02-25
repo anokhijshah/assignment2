@@ -77,7 +77,7 @@ def main(p4info_file_path, bmv2_file_path, routing_info):
                     },
                     action_name="MyIngress.change_dst_mac",
                     action_params={
-                        "next_hop_mac": next_hop_mac 
+                        "dst_mac": next_hop_mac 
                     }
                 )
                 s1.WriteTableEntry(arp_entry)

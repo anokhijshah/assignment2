@@ -187,9 +187,9 @@ control MyIngress(inout headers hdr,
         /* 1. Lookup IPv4 routing table */
         /* 2. Upon hit, lookup ARP table, Decrement ttl and lookup forwarding table */  
         if (ipv4_route.apply().hit) {
-            arp_table.apply().hit
+            arp_table.apply();
             decrement_ttl();
-            dmac_forward.apply().hit
+            dmac_forward.apply();
         }
         else {
             drop();
